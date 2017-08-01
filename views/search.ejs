@@ -1,0 +1,82 @@
+<% include partials/header.ejs %>
+<script src="/feed.js"></script>
+    <nav class="teal lighten-2" style="margin-bottom: 5vh;">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/feed" class="brand-logo">Butter</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+        <div class="background">
+            <img src="<%= uData.background %>">
+        </div>
+        <a><img class="circle" src="<%= uData.picture %>"></a>
+        <a><span class="white-text name">Hello <%= uData.name %></span></a>
+        <a><span class="white-text date"></span></a>
+    </div></li>
+        <form action="/search" method="POST">
+            <div class="input-field">
+                <input name="searchValue" type="search" required="true" placeholder="Enter a name to search" style="width: 280px;margin-left: 10px;">
+            </div>
+        </form>
+        <li><a href="/edit">Edit Profile</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+
+    <% if(users.length == 0){ %>
+        <div class="container">
+        <div class="row">
+            <div class="col s12 m4 offset-m4">
+                <div class="card-panel hoverable">
+                        <p class="center-align">No one matched the name <%= searchString %></p>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <% } else {%>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m4 offset-m4">
+                    <div class="card-panel hoverable">
+                            <p class="center-align">People that match the name <%= searchString %></p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+    <% users.forEach(function(user){ %>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <div class="card-panel hoverable">
+                    <div class="row valign-wrapper" style="margin-top: 3vh;">
+                        <div class="col s4 l2">
+                            <img class="circle responsive-img hoverable" src="<%= user.picture %>" style="max-width: auto;height: auto;">
+                        </div>
+                        <div class="col s8 l10">
+                            <a href="/profile/<%= user.id %>"><h5><%= user.name %></h5></a>
+                            <p style="margin-left: 1px;"><%= user.about.substring(0,25) %>...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% }); %>
+<% include partials/footer.ejs %>

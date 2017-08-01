@@ -1,0 +1,99 @@
+<% include partials/header.ejs %>
+<script src="/showprofile.js"></script>
+
+<script src="/feed.js"></script>
+    <nav class="teal lighten-2" style="margin-bottom: 5vh;">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/feed" class="brand-logo">Butter</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+        <div class="background">
+            <img src="<%= uData.background %>">
+        </div>
+        <a><img class="circle" src="<%= uData.picture %>"></a>
+        <a><span class="white-text name">Hello <%= uData.name %></span></a>
+        <a><span class="white-text date"></span></a>
+    </div></li>
+        <form action="/search" method="POST">
+            <div class="input-field">
+                <input name="searchValue" type="search" required="true" placeholder="Enter a name to search" style="width: 280px;margin-left: 10px;">
+            </div>
+        </form>
+        <li><a href="/edit">Edit Profile</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div class="card-panel hoverable" style="height: 100%;">
+                    <div class="row">
+                        <div class="col s12 m4">
+                            <img src="<%= oData.picture %>" alt="Profile Picture" class="materialboxed centerThis responsive-img" style="margin-bottom: 3vh;">
+                            <h4 class="flow-text center-align name"><%= oData.name %></h4>
+                            <% if(uData.id != oData.id){ %>
+                            <% if(uData.friends.indexOf(oData.id) < 0){ %>
+                                <p class="center-align" style="margin: 0 0;">
+                                    <a class="waves-effect waves-light btn" href="/follow/<%= oData.id %>">follow</a>
+                                </p>                            
+                            <% } else { %>
+                                <h5 class="center-align">You are following!</h6>
+                            <% } %>
+                            <% } %>
+                        </div>
+                        <div class="col s12 m8">
+                            <h6 class="flow-text"><span class="pref">E-Mail:</span> <%= oData.email %></h6>
+                            <h6 class="flow-text"><span class="pref">Birthday:</span> <%= oData.birthday %></h6>
+                            <% if(oData.about) { %>
+                                <h6 class="flow-text"><span class="pref">Bio:</span> <%= oData.about %></h6>
+                            <% } %>
+                            <% if(oData.about) { %>
+                                <h6 class="flow-text"><span class="pref">Interests:</span> <%= oData.interests %></h6>
+                            <% } %>
+                            <% if(oData.about) { %>
+                                <h6 class="flow-text"><span class="pref">Favorite Movies:</span> <%= oData.favMovies %></h6>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% var properPosts = oData.posts.reverse(); %>
+        <% properPosts.forEach(function(post){ %>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <div class="card-panel hoverable">
+                    <div class="row valign-wrapper" style="margin-top: 3vh;">
+                        <div class="col s4 l2">
+                            <img class="circle responsive-img hoverable" src="<%= oData.picture %>" style="max-width: auto;height: auto;">
+                        </div>
+                        <div class="col s8 l10">
+                            <a href="/profile/<%= oData.id %>"><h5><%= oData.name %></h5></a>
+                            <h6><%= post.created.toDateString() %></h6>
+                            <p style="margin-left: 1px;"><%= post.body %></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+    
+
+
+<% include partials/footer.ejs %>

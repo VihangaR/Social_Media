@@ -1,0 +1,104 @@
+<% include partials/header.ejs %>
+<script src="/feed.js"></script>
+    <nav class="teal lighten-2" style="margin-bottom: 5vh;">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/feed" class="brand-logo">Butter</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+        <div class="background">
+            <img src="<%= uData.background %>">
+        </div>
+        <a><img class="circle" src="<%= uData.picture %>"></a>
+        <a><span class="white-text name">Hello <%= uData.name %></span></a>
+        <a><span class="white-text date"></span></a>
+    </div></li>
+        <form action="/search" method="POST">
+            <div class="input-field">
+                <input name="searchValue" type="search" required="true" placeholder="Enter a name to search" style="width: 280px;margin-left: 10px;">
+            </div>
+        </form>
+        <li><a href="/edit">Edit Profile</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <form action="/feed" method="POST"> 
+                    <div class="card-panel hoverable">
+                        <h5 class="card-title">Hello <%= uData.name %></h5>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea name="statusUpdate" row="30" id="statusUpdate"class="materialize-textarea"></textarea>
+                                <label for="statusUpdate">Write a status update!</label>
+                            </div>
+                        </div>
+                        <button class="waves-effect waves-light btn">Post</button>
+                    </div>
+                </form> 
+            </div>            
+        </div>        
+    </div>
+    <% uPost = uData.posts.reverse(); %>
+    <% if(uPost.length > 0){ %>
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m8 offset-m2">
+                    <div class="card-panel hoverable">
+                        <div class="row valign-wrapper" style="margin-top: 3vh;">
+                            <div class="col s4 l2">
+                                <img class="circle responsive-img hoverable" src="<%= uData.picture %>" style="max-width: auto;height: auto;">
+                            </div>
+                            <div class="col s8 l10">
+                                <a href="/profile/<%= uData.id %>"><h5><%= uData.name %></h5></a>
+                                <h6><%= uPost[0].created.toDateString() %></h6>
+                                <p style="margin-left: 1px;"><%= uPost[0].body %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    <% } %>
+
+    <% friends.forEach(function(friend){ %>
+        <% var posts = friend.posts.reverse(); %>
+        <% if(posts.length > 0){ %>
+            <div class="container">
+                <div class="row">
+                    <div class="col s12 m8 offset-m2">
+                        <div class="card-panel hoverable">
+                            <div class="row valign-wrapper" style="margin-top: 3vh;">
+                                <div class="col s4 l2">
+                                    <img class="circle responsive-img hoverable" src="<%= friend.picture %>" style="max-width: auto;height: auto;">
+                                </div>
+                                <div class="col s8 l10">
+                                    <a href="/profile/<%= friend.id %>"><h5><%= friend.name %></h5></a>
+                                    <h6><%= posts[0].created.toDateString() %></h6>
+                                    <p style="margin-left: 1px;"><%= posts[0].body %></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        <% } %>
+    <% }) %>
+
+<% include partials/footer.ejs %>

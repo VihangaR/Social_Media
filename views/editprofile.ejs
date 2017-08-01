@@ -1,0 +1,121 @@
+<% include partials/header.ejs %>
+<script>
+  UPLOADCARE_LOCALE = "en";
+  UPLOADCARE_TABS = "file url";
+  UPLOADCARE_PUBLIC_KEY = "08480b8f10bcd11b7666";
+  UPLOADCARE_LIVE = false;
+</script>
+<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.1.1/uploadcare.full.min.js"></script>
+
+<script src="/feed.js"></script>
+    <nav class="teal lighten-2" style="margin-bottom: 5vh;">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/feed" class="brand-logo">Butter</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/profile/<%= uData.id %>">Profile</a></li>
+                    <li><a href="/friends">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+        <div class="background">
+            <img src="<%= uData.background %>">
+        </div>
+        <a><img class="circle" src="<%= uData.picture %>"></a>
+        <a><span class="white-text name">Hello <%= uData.name %></span></a>
+        <a><span class="white-text date"></span></a>
+    </div></li>
+        <form action="/search" method="POST">
+            <div class="input-field">
+                <input name="searchValue" type="search" required="true" placeholder="Enter a name to search" style="width: 280px;margin-left: 10px;">
+            </div>
+        </form>
+        <li><a href="/edit">Edit Profile</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <form action="/edit?_method=PUT" method="post">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <img src="<%= uData.picture %>" alt="Profile Picture" width="200" class="materialboxed centerThis responsive-img" style="margin-bottom: 3vh;">
+                            <p class="uploader-button" class="centerThis">
+                                <input id="profile" type="hidden" role="uploadcare-uploader" name="data[picture]"
+                                data-crop="400:400 minimum"
+                                data-images-only="true"/>
+                            </p>                            
+                            <div></div>
+                        </div>
+                        <button class="waves-effect waves-light btn buttonMargin">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <form action="/edit?_method=PUT" method="POST">
+                    <div class="card hoverable">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="col s12">
+                                    <label for="name" class="active">Name</label>
+                                    <input name="data[name]"id="name" type="text" class="validate" value="<%= uData.name %>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <label for="gender">Gender</label>
+                                    <select name="data[gender]" id="gender">
+                                        <% if(uData.gender == "Male"){ %>
+                                            <option value="Male" selected>Male</option>
+                                            <option value="Female">Female</option>
+                                        <% } else { %>
+                                            <option value="Male">Male</option>
+                                            <option value="Female" selected>Female</option>
+                                        <% } %>                              
+                                    </select>                                    
+                                </div>
+                                <div class="col s12 m6">
+                                    <label for="email" class="active">E-Mail</label>
+                                    <input name="data[email]" value="<%= uData.email %>" id="email" type="text" class="validate" value="<%= uData.email %>" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <label for="bio" class="active">Bio</label>
+                                    <textarea name="data[about]" name="statusUpdate" row="30" id="bio"class="materialize-textarea"><%= uData.about %></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <label for="interests" class="active">Interests</label>
+                                    <input name="data[interests]" id="interests" type="text" class="validate" value="<%= uData.interests %>">
+                                </div>
+                                <div class="col s12 m6">
+                                    <label for="movies" class="active">Favorite movies</label>
+                                    <input name="data[favMovies]" id="movies" type="text" class="validate" value="<%= uData.favMovies %>">
+                                </div>
+                            </div>
+                            <button class="waves-effect waves-light btn">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script src="/profile.js"></script>
+
+<% include partials/footer.ejs %>

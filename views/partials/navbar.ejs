@@ -1,0 +1,36 @@
+<script src="/feed.js"></script>
+    <nav class="teal lighten-2">
+        <div class="nav-wrapper">
+            <div class="container">
+                <a href="/feed" class="brand-logo">Butter</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="/">Profile</a></li>
+                    <li><a href="/">Friends</a></li>
+                    <li><a data-activates="slide-out" class="open-side">More</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+        <div class="background">
+            <img src="http://demo.geekslabs.com/materialize-v1.0/images/user-bg.jpg">
+        </div>
+        <a><img class="circle" src="https://s-media-cache-ak0.pinimg.com/736x/44/32/02/443202954f56cabe3c047ee38de77070--batman-drawing-batman-artwork.jpg"></a>
+        <a><span class="white-text name">Hello <%= uData.name %></span></a>
+        <a><span class="white-text date"></span></a>
+    </div></li>
+        <form action="" method="">
+            <div class="input-field">
+                <input type="search" required="true" placeholder="Enter a name to search" style="width: 280px;margin-left: 10px;">
+            </div>
+        </form>
+        <li><a href="/about">About</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
