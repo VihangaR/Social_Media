@@ -37,3 +37,12 @@ background: linear-gradient(to right, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, F
 .uploadcare--widget_status_ready, .uploadcare--widget {
     margin-left: calc(50% - 75px);
 }
+.top-padding-login {
+    padding-top: 28vh;
+}
+
+@media screen and (max-width: 768px) {
+    .top-padding-login {
+        padding-top: 20vh;
+    }
+}
