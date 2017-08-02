@@ -46,3 +46,11 @@ background: linear-gradient(to right, #96DEDA, #50C9C3); /* W3C, IE 10+/ Edge, F
         padding-top: 20vh;
     }
 }
+
+.white-text {
+    font-weight: 300;
+}
+
+.secondSection {
+    background-color: red;
+}

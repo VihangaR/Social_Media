@@ -69,7 +69,7 @@ function isLoggedIn(req, res, next){
 
 // Get routes
 app.get("/", function(req, res){
-    res.redirect("/feed");
+    res.render("landing");
 });
 
 app.get("/login", function(req, res){
