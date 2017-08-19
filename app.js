@@ -38,7 +38,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 // Database Handling
-mongoose.connect("mongodb://vihanga:qwe123@ds127883.mlab.com:27883/social_media");
+mongoose.connect("mongodb://<username>:<password>@ds127883.mlab.com:27883/social_media");
 // =========================
 // LOGIN ROUTES
 // =========================
